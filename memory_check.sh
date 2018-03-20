@@ -2,9 +2,15 @@
 #Edwin
 
 
-usage() { echo "Usage: $0 [-c <value>] [-w <value>]" 1>&2; exit 1; }
+usage()
 
-MEM=$(free | grep Mem | awk "{print $3/$2 * 100.0}")
+{
+if [ "$#" -ne 1 ]; then
+echo "Usage: $0 [-c <value>] [-w <value>]" 1>&2; exit 1;
+fi
+}
+
+MEM=$(free | grep Mem | awk '{print $3/$2*100.0}')
 
 while getopts ":c:w:" MEM; do
     case "${MEM}" in
@@ -30,11 +36,15 @@ while getopts ":c:w:" MEM; do
             ;;
     esac
 done
-shift $((OPTIND-1))
+
+	shift $((OPTIND-1))
 
 if [ -z "${c}" ] || [ -z "${w}" ]; then
-    usage
-fi
 
-#echo "c = ${c}"
-#echo "w = ${w}"
+	usage
+
+elif [ -z "${w}" ] || [ -z "${c}" ]; then
+
+    usage
+
+fi
