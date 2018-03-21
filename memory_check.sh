@@ -47,7 +47,7 @@ shift $((OPTIND-1))
                 echo "CRITICAL: Memory usage is above 90%"
                 echo "Subject: $DATE memory check - critical" > /tmp/email
                 echo "$PID" >> /tmp/email
-                /usr/sbin/sendmail edwin.reginojr@infor.com < /tmp/email
+                /usr/sbin/sendmail "$e" < /tmp/email
                 rm -f /tmp/email
         else
 
